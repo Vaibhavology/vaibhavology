@@ -127,8 +127,8 @@ export default function Header(): React.JSX.Element {
               <Image
                 src={siteConfig.images.logo}
                 alt="Logo"
-                width={70}
-                height={50}
+                width={60}
+                height={60}
                 className={`w-auto object-contain transition-all duration-300 ${scrolled ? "h-5 md:h-6" : "h-7 md:h-8"}`}
                 priority
               />
