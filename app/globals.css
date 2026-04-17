@@ -1683,8 +1683,8 @@ img {
 
 .scroll-to-top {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
+  bottom: 104px;
+  right: 24px;
   width: 48px;
   height: 48px;
   background: var(--gradient-hero);
@@ -2258,5 +2258,10 @@ img {
     right: 16px;
     width: 48px;
     height: 48px;
+  }
+
+  .scroll-to-top {
+    bottom: 80px;
+    right: 16px;
   }
 }

@@ -7,10 +7,10 @@ import { siteConfig } from "../config";
 import { ThemeToggle } from "./ThemeProvider";
 
 const navItems = [
-  { href: "#home", label: "Home", icon: "🏠" },
-  { href: "#skills", label: "Skills", icon: "⚡" },
-  { href: "#lab", label: "Projects", icon: "🚀" },
-  { href: "#contact", label: "Contact", icon: "✉️" },
+  { href: "#home", label: "Home" },
+  { href: "#skills", label: "Skills" },
+  { href: "#lab", label: "Projects" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function Header(): React.JSX.Element {
