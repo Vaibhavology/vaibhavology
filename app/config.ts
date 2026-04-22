@@ -5,34 +5,30 @@
 
 export const siteConfig = {
     // ===========================================
-    // PERSONAL INFO
-    // ===========================================
-    name: "Vaibhav S", // Your full name
-    firstName: "Your", // Just first name (used in some places)
+    name: "Vaibhav S",
+    firstName: "Vaibhav",
 
-    // Roles that animate in the banner (typing effect)
     roles: [
-        "Software Engineer",
-        "System Design",
-        "Backend Automation"
+        "Full Stack Developer",
+        "AI & Automation Engineer",
+        "Backend Systems Engineer"
     ],
 
-    // Your current position
     currentPosition: {
-        role: "Freelancer",
+        role: "Freelance",
         company: "Automation Engineer",
-        companyLogo: "/assets/webhr.webp", // Replace with your company logo
+        companyLogo: "/assets/webhr.webp",
     },
 
-    // Short bio/tagline
-    tagline: "A Designer who",
-    headline: "Judges a book by its cover...",
-    subHeadline: "Because if the cover does not impress you what else can?",
+    tagline: "I build systems that",
+    headline: "Scale automation, process data, and solve real-world problems",
+    subHeadline: "Backend-focused developer specializing in AI pipelines, async systems, and high-performance architectures",
 
-    // About section description
-    aboutDescription: `Backend-focused developer with experience building production-grade automation systems, real-time pipelines, and enterprise applications. Skilled in designing scalable architectures, optimizing compute-heavy workflows, and deploying systems.`,
+    aboutDescription: `
+Full Stack Developer and AI Engineer specializing in backend systems, automation, and scalable architectures.
+Experienced in building GPU-accelerated pipelines, async processing systems, and real-time applications like AeroStream AI.
+`,
 
-    // What I Solve section data
     whatISolve: [
         {
             title: "Workflow Automation",
@@ -65,11 +61,11 @@ export const siteConfig = {
     socials: {
         instagram: "https://www.instagram.com/vaibhavology_",
         github: "https://github.com/vaibhavology",
-        linkedin: "https://www.linkedin.com/in/vaibhavology_",
+        linkedin: "https://www.linkedin.com/in/vaibhavology/",
     },
 
     // Website URL (for SEO)
-    url: "https://vaibhavology.com",
+    url: "https://vaibhavology.vercel.app/",
 
     // ===========================================
     // IMAGES
@@ -312,43 +308,112 @@ export const caseStudies = [
 // TESTIMONIALS
 // ===========================================
 export const testimonials = [
+
+
     {
         id: 1,
-        quote: "An exceptional developer who brings both technical expertise and creative vision to every project. Their attention to detail and commitment to quality is outstanding.",
-        name: "John Doe",
-        role: "Engineering Manager",
-        company: "Tech Corp",
-        avatar: "", // Add avatar image path or leave empty for initial
+        quote: "I got to see Vaibhav’s work closely during the hackathon, and what stood out was his persistence. Even when things didn’t work at first, he kept iterating and improving. It was clear he genuinely cares about solving problems.",
+        name: "Akanksha Buchke",
+        role: "Senior SDE",
+        company: "PayPal",
+        avatar: "https://media.licdn.com/dms/image/v2/D5603AQH3asd7q9BPJg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1708438737353?e=1778716800&v=beta&t=qdSISpF6wAxEA81OfPFj2zeuZFgFm0UUSYhJyvr101A",
     },
     {
         id: 2,
-        quote: "Working with them was a pleasure. They delivered ahead of schedule and the quality of work exceeded our expectations. Highly recommended!",
-        name: "Jane Smith",
-        role: "Product Designer",
-        company: "Design Studio",
+        quote: "I’ve been working with Vaibhav for a while now, and what I really like is his mix of creativity and technical thinking. He built automation tools for my workflow (video and image processing) that saved me a lot of manual effort. He’s basically the AI guy I rely on whenever we need to get things done faster and smarter.",
+        name: "Sharan Chilimbi",
+        role: "Social Media Influencer",
+        company: "Powerhouse Vines",
+        avatar: "https://media.licdn.com/dms/image/v2/D5603AQGQwIhKbjHLFQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731403762833?e=1778716800&v=beta&t=IxB2ji2vWb8NsUbY0OwIbpNTYkw-TqazYRXPJIoa-cQ",
+    },
+
+    {
+        id: 3,
+        quote: "I worked with Vaibhav at Bosch and I really appreciated his approach to problem-solving. He stayed calm under pressure, took ownership of his work, and consistently contributed as a strong team player. He’s someone you can rely on to get things done.",
+        name: "Prasad VK",
+        role: "Senior Engineer",
+        company: "Bosch India",
         avatar: "",
     },
     {
-        id: 3,
-        quote: "Their ability to translate complex requirements into elegant, user-friendly solutions is remarkable. A true professional in every sense.",
-        name: "Mike Johnson",
-        role: "CEO",
-        company: "Startup Inc",
-        avatar: "",
+        id: 2,
+        quote: "I met Vaibhav during a national-level hackathon at Dr. AIT, and I was genuinely impressed by how he approached problems. He combines solid technical skills with practical thinking.",
+        name: "Abdulkhadeer Shirahatti",
+        role: "CEO & Founder",
+        company: "Oxynyc Private Ltd",
+        avatar: "https://media.licdn.com/dms/image/v2/D5603AQFwF3zoHuXoaw/profile-displayphoto-crop_800_800/B56Zvq_vVIIYAI-/0/1769174137337?e=1778716800&v=beta&t=YHLXf8HiWxs7L6mbkovzXeZpILeePug1Z3bNzkj3jcs",
     },
+
 ];
 
 // ===========================================
 // SEO METADATA
 // ===========================================
 export const seoConfig = {
-    title: `${siteConfig.name} - ${siteConfig.roles[0]}`,
-    description: siteConfig.aboutDescription,
+    title: "Vaibhav S | Full Stack Developer (MERN) | AI & Automation Engineer",
+    description:
+        "Vaibhav S is a Full Stack Developer and AI Engineer specializing in MERN stack, backend systems, and automation. Creator of AeroStream AI — a GPU-accelerated video processing platform with parallel pipelines, real-time analytics, and scalable architecture.",
+
     keywords: [
-        siteConfig.name,
-        ...siteConfig.roles,
-        "Portfolio",
-        "Web Developer",
-        "Designer",
+        "Vaibhav S",
+        "Vaibhavology",
+        "Full Stack Developer India",
+        "MERN Stack Developer",
+        "AI Engineer",
+        "AI Engineer India",
+        "Automation Engineer",
+        "Node.js Developer",
+        "React Developer",
+        "Backend Developer",
+        "Software Engineer Portfolio",
+        "Startup Developer",
+        "Freelance Developer India",
+        "GPU Acceleration",
+        "Video Processing AI",
+        "AeroStream AI",
+        "Scalable System Design",
     ],
+
+    openGraph: {
+        title: "Vaibhav S | Full Stack Developer & AI Engineer",
+        description: "Building scalable automation systems and GPU-accelerated AI tools like AeroStream AI.",
+        url: "https://vaibhavology.vercel.app/",
+        siteName: "Vaibhavology",
+        images: [
+            {
+                url: "/assets/me4.png",
+                width: 1200,
+                height: 630,
+                alt: "Vaibhav S Portfolio",
+            },
+        ],
+        type: "website",
+    },
+
+    twitter: {
+        card: "summary_large_image",
+        title: "Vaibhav S | Full Stack Developer & AI Engineer",
+        description: "Backend systems, automation, and AI pipelines.",
+    },
+
+    alternates: {
+        canonical: "https://vaibhavology.vercel.app/",
+    },
+};
+
+
+// ===========================================
+// STRUCTURED DATA (ADD IN HEAD)
+// ===========================================
+
+export const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Vaibhav S",
+    url: "https://vaibhavology.vercel.app/",
+    sameAs: [
+        "https://github.com/vaibhavology",
+        "https://www.linkedin.com/in/vaibhavology/"
+    ],
+    jobTitle: "Full Stack Developer & AI Engineer",
 };

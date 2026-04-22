@@ -11,7 +11,7 @@ const INITIAL_MESSAGES: Message[] = [
   {
     role: "assistant",
     content:
-      "Hey!  I'm Vaibhav's portfolio assistant. Ask me anything about his skills, experience, or projects!",
+      "Hey! 👋 I'm Vaibhav's portfolio assistant. Ask me anything about his skills, experience, or projects!",
   },
 ];
 

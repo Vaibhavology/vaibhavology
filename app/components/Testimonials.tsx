@@ -9,14 +9,23 @@ export default function Testimonials(): React.JSX.Element {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const nextTestimonial = useCallback(() => {
-        setActiveIndex((prev) => (prev + 1) % testimonials.length);
+        setActiveIndex((prev) => {
+            const next = (prev + 1) % testimonials.length;
+            console.log('Next clicked:', prev, '->', next);
+            return next;
+        });
     }, []);
 
     const prevTestimonial = useCallback(() => {
-        setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        setActiveIndex((prev) => {
+            const next = (prev - 1 + testimonials.length) % testimonials.length;
+            console.log('Prev clicked:', prev, '->', next);
+            return next;
+        });
     }, []);
 
     const setIndex = useCallback((index: number) => {
+        console.log('Dot clicked:', index);
         setActiveIndex(index);
     }, []);
 
@@ -46,15 +55,15 @@ export default function Testimonials(): React.JSX.Element {
                 <ScrollAnimate delay={200}>
                     <div className="card-widget relative overflow-hidden group">
                         {/* Animated background gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-blue)]/5 via-transparent to-[var(--accent-purple)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-[var(--accent-blue)]/5 via-transparent to-[var(--accent-purple)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                         {/* Quote Icon with animation */}
-                        <div className="absolute top-6 left-6 text-7xl font-serif gradient-text-static opacity-20 select-none">
+                        <div className="absolute top-6 left-6 text-7xl font-serif gradient-text-static opacity-20 select-none pointer-events-none">
                             &ldquo;
                         </div>
 
                         {/* Content */}
-                        <div className="relative pt-10 pb-6 px-6">
+                        <div className="relative pt-10 pb-6 px-6" key={activeIndex}>
                             <blockquote className="text-xl lg:text-2xl text-[var(--foreground-secondary)] text-center leading-relaxed mb-10 min-h-[120px] transition-all duration-500">
                                 {active.quote}
                             </blockquote>
@@ -94,7 +103,7 @@ export default function Testimonials(): React.JSX.Element {
 
                         {/* Navigation */}
                         {testimonials.length > 1 && (
-                            <div className="flex items-center justify-center gap-6 pt-6 border-t border-[var(--separator)] mt-6">
+                            <div className="relative z-10 flex items-center justify-center gap-6 pt-6 border-t border-[var(--separator)] mt-6">
                                 <button
                                     onClick={prevTestimonial}
                                     className="w-12 h-12 flex items-center justify-center rounded-xl bg-[var(--background-secondary)] border border-[var(--separator)] hover:bg-[var(--background-tertiary)] hover:border-[var(--accent)]/30 active:scale-95 transition-all group/btn"

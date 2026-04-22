@@ -11,7 +11,7 @@ const PORTFOLIO = {
   bio: "Backend-focused developer with experience building production-grade automation systems, real-time pipelines, and enterprise applications. Skilled in designing scalable architectures, optimizing compute-heavy workflows, and deploying systems.",
   email: "vaibhavsu24@gmail.com",
   github: "https://github.com/vaibhavology",
-  linkedin: "https://www.linkedin.com/in/vaibhavology_",
+  linkedin: "https://www.linkedin.com/in/vaibhavology",
   instagram: "https://www.instagram.com/vaibhavology_",
   skills: {
     languages: ["Java", "C++", "JavaScript", "Python", "HTML/CSS"],
