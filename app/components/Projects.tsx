@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { caseStudies } from "../config";
 import { ScrollAnimate } from "./ScrollAnimate";
 
 /* ═══════════════════════════════════════════
    Architecture node icons (inline SVGs)
    ═══════════════════════════════════════════ */
-const archIcons: Record<string, React.ReactNode> = {
+export const archIcons: Record<string, React.ReactNode> = {
     server: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <rect x="2" y="2" width="20" height="8" rx="2" /><rect x="2" y="14" width="20" height="8" rx="2" />
@@ -103,7 +104,7 @@ const archIcons: Record<string, React.ReactNode> = {
 /* ═══════════════════════════════════════════
    Section label with icon
    ═══════════════════════════════════════════ */
-function SectionLabel({ icon, label }: { icon: React.ReactNode; label: string }) {
+export function SectionLabel({ icon, label }: { icon: React.ReactNode; label: string }) {
     return (
         <div className="cs-section-label">
             <span className="cs-section-icon">{icon}</span>
@@ -116,12 +117,12 @@ function SectionLabel({ icon, label }: { icon: React.ReactNode; label: string })
    Layered Architecture Diagram
    Production-grade, glassmorphism nodes
    ═══════════════════════════════════════════ */
-interface ArchLayer {
+export interface ArchLayer {
     label: string;
     nodes: { id: string; label: string; icon: string }[];
 }
 
-function ArchitectureDiagram({ layers, accentColor }: {
+export function ArchitectureDiagram({ layers, accentColor }: {
     layers: ArchLayer[];
     accentColor: string;
 }) {
@@ -185,7 +186,7 @@ function ArchitectureDiagram({ layers, accentColor }: {
 /* ═══════════════════════════════════════════
    Case study accent palette
    ═══════════════════════════════════════════ */
-const studyAccents = [
+export const studyAccents = [
     { primary: "#0a84ff", gradient: "linear-gradient(135deg, #0a84ff 0%, #bf5af2 100%)" },
     { primary: "#30d158", gradient: "linear-gradient(135deg, #30d158 0%, #64d2ff 100%)" },
 ];
@@ -193,7 +194,7 @@ const studyAccents = [
 /* ═══════════════════════════════════════════
    SVG icons for section labels
    ═══════════════════════════════════════════ */
-const sectionIcons = {
+export const sectionIcons = {
     problem: (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
@@ -344,6 +345,18 @@ export default function Projects(): React.JSX.Element {
                         );
                     })}
                 </div>
+
+                {/* ── View All Projects Button ── */}
+                <ScrollAnimate delay={500}>
+                    <div className="mt-16 flex justify-center">
+                        <Link href="/projects" className="btn-primary flex items-center gap-2 relative overflow-hidden group">
+                            <span className="relative z-10">View All Projects</span>
+                            <svg className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </Link>
+                    </div>
+                </ScrollAnimate>
             </div>
         </section>
     );

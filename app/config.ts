@@ -181,7 +181,7 @@ export const caseStudies = [
         title: "AeroStream AI",
         tagline: "GPU-accelerated video pipeline powering 5,500+ subscribers with zero manual intervention.",
         image: "/projects/p1.png",
-        link: "#",
+        link: "https://aerostreamai.duckdns.org",
         problem:
             "Manual video production is slow, error-prone, and doesn't scale. Creating, encoding, and publishing content across platforms required constant human involvement — bottlenecking growth.",
         solution:
@@ -243,6 +243,65 @@ export const caseStudies = [
     },
     {
         id: 2,
+        title: "TradingXtra Terminal",
+        tagline: "AI-powered trading intelligence platform with real-time market data, automated stock picks, and portfolio management.",
+        image: "/projects/p3.png",
+        link: "https://tradingxtra.vercel.app/",
+        problem:
+            "Retail traders lack access to institutional-grade analysis tools. Manual research is time-consuming, and most free platforms offer delayed data with no actionable intelligence.",
+        solution:
+            "Built a full-stack trading terminal that combines real-time market data from yfinance, AI-driven stock analysis via Gemini, and automated portfolio recommendations — all wrapped in a premium, Bloomberg-inspired dark UI.",
+        techStack: ["React", "Next.js", "Python", "Flask", "PostgreSQL", "Gemini AI", "yfinance", "Vercel", "Render"],
+        impact: [
+            { metric: "Real-time", label: "Market data feeds" },
+            { metric: "AI-driven", label: "Stock recommendations" },
+            { metric: "<5s", label: "Analysis generation" },
+            { metric: "24/7", label: "Automated monitoring" },
+        ],
+        architecture: {
+            layers: [
+                {
+                    label: "Frontend",
+                    nodes: [
+                        { id: "nextjs", label: "Next.js\nApp", icon: "monitor" },
+                        { id: "dashboard", label: "Trading\nDashboard", icon: "monitor" },
+                    ],
+                },
+                {
+                    label: "API Layer",
+                    nodes: [
+                        { id: "flask", label: "Flask\nAPI", icon: "server" },
+                        { id: "cache", label: "Response\nCache", icon: "disk" },
+                    ],
+                },
+                {
+                    label: "Intelligence",
+                    nodes: [
+                        { id: "gemini", label: "Gemini\nAI", icon: "cpu" },
+                        { id: "yfinance", label: "yfinance\nData", icon: "database" },
+                        { id: "youtube", label: "YouTube\nAnalysis", icon: "upload" },
+                    ],
+                },
+                {
+                    label: "Data & Hosting",
+                    nodes: [
+                        { id: "postgres", label: "PostgreSQL", icon: "database" },
+                        { id: "vercel", label: "Vercel\nCDN", icon: "cloud" },
+                        { id: "render", label: "Render\nBackend", icon: "server" },
+                    ],
+                },
+            ],
+        },
+    },
+];
+
+// ===========================================
+// ALL PROJECTS (for /projects page)
+// ===========================================
+export const allProjects = [
+    ...caseStudies,
+    {
+        id: 3,
         title: "Project Veyron",
         tagline: "Real-time driver monitoring system combining IoT hardware, computer vision, and edge alerts.",
         image: "/projects/p2.png",
@@ -301,6 +360,7 @@ export const caseStudies = [
             ],
         },
     },
+
 ];
 
 
