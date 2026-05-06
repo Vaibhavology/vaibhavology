@@ -6,7 +6,7 @@ import { ScrollAnimate } from "./ScrollAnimate";
 
 export default function Experience(): React.JSX.Element {
   return (
-    <section id="experience" className="py-24 px-6 relative">
+    <section id="experience" className="py-16 sm:py-24 px-4 sm:px-6 relative">
       <div className="container mx-auto max-w-4xl">
         {/* Section Header */}
         <ScrollAnimate>
@@ -26,23 +26,23 @@ export default function Experience(): React.JSX.Element {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical timeline line */}
-          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--accent-blue)] via-[var(--accent-purple)] to-[var(--accent-pink)] opacity-30" />
+          <div className="absolute left-4 sm:left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--accent-blue)] via-[var(--accent-purple)] to-[var(--accent-pink)] opacity-30" />
 
           {/* Experience items */}
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             {experienceCards.map((exp, index) => (
               <ScrollAnimate key={index} delay={index * 150}>
-                <div className="relative flex gap-6 md:gap-8 group">
+                <div className="relative flex gap-3 sm:gap-6 md:gap-8 group">
                   {/* Timeline node */}
                   <div className="flex-shrink-0 relative z-10">
-                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-[var(--background-secondary)] border border-[var(--separator)] flex items-center justify-center overflow-hidden group-hover:border-[var(--accent)]/40 group-hover:shadow-lg group-hover:shadow-[var(--accent)]/5 transition-all duration-500">
+                    <div className="w-9 h-9 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-[var(--background-secondary)] border border-[var(--separator)] flex items-center justify-center overflow-hidden group-hover:border-[var(--accent)]/40 group-hover:shadow-lg group-hover:shadow-[var(--accent)]/5 transition-all duration-500">
                       <Image
                         src={exp.icon}
                         alt={exp.company}
                         width={48}
                         height={48}
                         className="object-contain group-hover:scale-110 transition-transform duration-500"
-                        style={{ width: "48px", height: "48px" }}
+                        style={{ width: "32px", height: "32px" }}
                         loading="lazy"
                       />
                     </div>

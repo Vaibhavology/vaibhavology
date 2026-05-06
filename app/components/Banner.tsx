@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { siteConfig } from "../config";
 
@@ -48,7 +49,7 @@ export default function Banner(): React.JSX.Element {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center pt-24 pb-12 md:pt-20 md:pb-0 px-4 sm:px-6 relative"
+      className="min-h-screen flex items-center justify-center pt-20 pb-8 sm:pt-24 sm:pb-12 md:pt-20 md:pb-0 px-4 sm:px-6 relative"
     >
       <div className="container mx-auto max-w-6xl relative z-10 mt-8 md:mt-0">
         <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
@@ -96,7 +97,7 @@ export default function Banner(): React.JSX.Element {
             </div>
 
             {/* Name with gradient */}
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight">
               <span className="gradient-text">{siteConfig.name}</span>
             </h1>
 
@@ -136,13 +137,13 @@ export default function Banner(): React.JSX.Element {
             </div>
 
             {/* Bio */}
-            <p className="text-sm sm:text-base md:text-lg text-[var(--foreground-tertiary)] max-w-[280px] sm:max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-[var(--foreground-tertiary)] max-w-full sm:max-w-xl mx-auto lg:mx-0 leading-relaxed">
               {siteConfig.aboutDescription}
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4">
-              <a href="#contact" className="btn-primary group w-full sm:w-auto text-center justify-center">
+              <a href="/#contact" className="btn-primary group w-full sm:w-auto text-center justify-center" aria-label="Get in touch — scroll to contact section">
                 <span className="flex items-center justify-center gap-2 text-sm sm:text-base">
                   Get in Touch
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -150,14 +151,14 @@ export default function Banner(): React.JSX.Element {
                   </svg>
                 </span>
               </a>
-              <a href="#lab" className="btn-secondary group w-full sm:w-auto text-center justify-center">
+              <Link href="/projects" className="btn-secondary group w-full sm:w-auto text-center justify-center" aria-label="View all projects">
                 <span className="flex items-center justify-center gap-2 text-sm sm:text-base">
                   View Projects
                   <svg className="w-4 h-4 group-hover:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </span>
-              </a>
+              </Link>
             </div>
 
             {/* Stats row */}

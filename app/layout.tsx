@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
-import { siteConfig, seoConfig } from "./config";
+import { siteConfig, seoConfig, structuredData } from "./config";
 import { ThemeProvider } from "./components/ThemeProvider";
 
 import "./globals.css";
@@ -15,7 +15,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: seoConfig.title,
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: seoConfig.title,
+    template: `%s | ${siteConfig.name}`,
+  },
   description: seoConfig.description,
   keywords: seoConfig.keywords,
   authors: [{ name: siteConfig.name }],
@@ -28,11 +32,20 @@ export const metadata: Metadata = {
     title: seoConfig.title,
     description: seoConfig.description,
     siteName: `${siteConfig.name} Portfolio`,
+    images: seoConfig.openGraph?.images || [
+      {
+        url: "/assets/me4.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} Portfolio`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: seoConfig.title,
     description: seoConfig.description,
+    images: seoConfig.openGraph?.images?.map((img: { url: string }) => img.url) || ["/assets/me4.png"],
   },
   robots: {
     index: true,
@@ -44,6 +57,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 
@@ -65,10 +81,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="canonical" href={siteConfig.url} />
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        {/* Structured Data for SEO (JSON-LD) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
         {/* Prevent flash of wrong theme */}
         <script
           dangerouslySetInnerHTML={{

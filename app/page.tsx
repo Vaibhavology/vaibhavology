@@ -6,22 +6,22 @@ import Banner from "./components/Banner";
 
 // Lazy load below-fold components for faster initial paint
 const Experience = dynamic(() => import("./components/Experience"), {
-  loading: () => <div style={{ minHeight: "400px" }} />,
+  loading: () => <div style={{ minHeight: "400px" }} aria-hidden="true" />,
 });
 const Skills = dynamic(() => import("./components/Skills"), {
-  loading: () => <div style={{ minHeight: "400px" }} />,
+  loading: () => <div style={{ minHeight: "400px" }} aria-hidden="true" />,
 });
 const About = dynamic(() => import("./components/About"), {
-  loading: () => <div style={{ minHeight: "400px" }} />,
+  loading: () => <div style={{ minHeight: "400px" }} aria-hidden="true" />,
 });
 const Projects = dynamic(() => import("./components/Projects"), {
-  loading: () => <div style={{ minHeight: "400px" }} />,
+  loading: () => <div style={{ minHeight: "400px" }} aria-hidden="true" />,
 });
 const Testimonials = dynamic(() => import("./components/Testimonials"), {
-  loading: () => <div style={{ minHeight: "400px" }} />,
+  loading: () => <div style={{ minHeight: "400px" }} aria-hidden="true" />,
 });
 const Footer = dynamic(() => import("./components/Footer"), {
-  loading: () => <div style={{ minHeight: "200px" }} />,
+  loading: () => <div style={{ minHeight: "200px" }} aria-hidden="true" />,
 });
 const ScrollToTop = dynamic(() => import("./components/ScrollToTop"), {
   ssr: false,
@@ -36,18 +36,24 @@ const ChatBot = dynamic(() => import("./components/ChatBot"), {
 
 export default function Home(): React.JSX.Element {
   return (
-    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] relative">
-      <AnimatedBackground />
-      <Header />
-      <Banner />
-      <Experience />
-      <Skills />
-      <About />
-      <Projects />
-      <Testimonials />
-      <Footer />
-      <ScrollToTop />
-      <ChatBot />
-    </main>
+    <>
+      {/* Skip to main content link for keyboard users */}
+      <a href="#home" className="skip-to-content">
+        Skip to main content
+      </a>
+      <main id="main-content" className="min-h-screen bg-[var(--background)] text-[var(--foreground)] relative">
+        <AnimatedBackground />
+        <Header />
+        <Banner />
+        <Experience />
+        <Skills />
+        <About />
+        <Projects />
+        <Testimonials />
+        <Footer />
+        <ScrollToTop />
+        <ChatBot />
+      </main>
+    </>
   );
 }

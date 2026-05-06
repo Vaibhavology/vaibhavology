@@ -138,6 +138,48 @@ img {
   display: block;
 }
 
+/* ========================================
+   ACCESSIBILITY & INTERACTION IMPROVEMENTS
+   ======================================== */
+
+/* Focus-visible styles for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Remove default outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Minimum touch target size for mobile (48px) */
+@media (pointer: coarse) {
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Skip to content link for accessibility */
+.skip-to-content {
+  position: fixed;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--accent);
+  color: white;
+  border-radius: 0 0 12px 12px;
+  font-weight: 600;
+  transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
 /* macOS-style Scrollbar with Accent Colors */
 ::-webkit-scrollbar {
   width: 10px;
@@ -855,6 +897,7 @@ img {
 @media (max-width: 640px) {
   .skills-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 }
 
@@ -870,6 +913,13 @@ img {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 480px) {
+  .skill-card {
+    padding: 18px;
+    border-radius: 14px;
+  }
 }
 
 .skill-card:hover {
@@ -974,6 +1024,12 @@ img {
 .familiar-section {
   margin-top: 48px;
   text-align: center;
+}
+
+@media (max-width: 480px) {
+  .familiar-section {
+    margin-top: 32px;
+  }
 }
 
 .familiar-header {
@@ -1356,7 +1412,7 @@ img {
   flex-direction: column;
   gap: 0;
   padding: 10px 0;
-  min-width: max-content;
+  width: 100%;
 }
 
 /* Individual layer row */
@@ -1365,6 +1421,7 @@ img {
   flex-direction: column;
   align-items: flex-start;
   position: relative;
+  width: 100%;
 }
 
 /* Vertical connector between layers */
@@ -1393,6 +1450,7 @@ img {
   display: flex;
   align-items: center;
   gap: 0;
+  flex-wrap: wrap;
 }
 
 /* Wrapper for node + potential horizontal arrow */
@@ -1498,20 +1556,49 @@ img {
   animation: flow-dash 1s linear infinite;
 }
 
-/* Responsive */
+/* Responsive — mobile architecture diagram */
 @media (max-width: 768px) {
   .cs-arch-card {
     padding: 16px;
   }
 
-  .arch-v2-node {
-    min-width: 120px;
-    padding: 12px 14px;
+  .arch-v2 {
+    padding: 4px 0;
+  }
+
+  .arch-v2-connector {
+    margin-left: 24px;
+  }
+
+  .arch-v2-nodes {
     gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .arch-v2-node-wrapper {
+    flex-wrap: wrap;
+  }
+
+  /* Hide horizontal arrows on mobile — they break when nodes wrap */
+  .arch-v2-harrow {
+    display: none;
+  }
+
+  .arch-v2-node {
+    min-width: 0;
+    flex: 0 1 auto;
+    padding: 10px 14px;
+    gap: 8px;
+    border-radius: 12px;
   }
 
   .arch-v2-node-text {
     font-size: 11px;
+  }
+
+  .arch-v2-label {
+    margin-left: 4px;
+    font-size: 10px;
   }
 }
 
@@ -1972,6 +2059,29 @@ img {
   }
 }
 
+/* Extra-small mobile (≤480px) — tighter spacing, smaller text */
+@media (max-width: 480px) {
+  .text-title-1 {
+    font-size: 26px;
+  }
+
+  .text-title-2 {
+    font-size: 22px;
+  }
+
+  .text-title-3 {
+    font-size: 20px;
+  }
+
+  .text-body {
+    font-size: 15px;
+  }
+
+  .text-subheadline {
+    font-size: 13px;
+  }
+}
+
 /* ========================================
    REDUCED MOTION - Accessibility
    ======================================== */
@@ -2292,21 +2402,28 @@ img {
   .chatbot-panel {
     right: 8px;
     left: 8px;
-    bottom: 88px;
+    bottom: 80px;
     width: auto;
-    max-height: 70vh;
+    max-height: 65vh;
     border-radius: 16px;
   }
 
   .chatbot-toggle {
-    bottom: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
     right: 16px;
     width: 48px;
     height: 48px;
   }
 
   .scroll-to-top {
-    bottom: 80px;
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
     right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .scroll-to-top svg {
+    width: 18px;
+    height: 18px;
   }
 }

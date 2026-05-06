@@ -60,7 +60,7 @@ const categoryAccents = [
 
 export default function Skills(): React.JSX.Element {
     return (
-        <section id="skills" className="py-24 px-6">
+        <section id="skills" className="py-16 sm:py-24 px-4 sm:px-6">
             <div className="container mx-auto max-w-6xl">
                 {/* Section Header */}
                 <ScrollAnimate>

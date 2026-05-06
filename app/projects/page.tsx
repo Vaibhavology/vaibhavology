@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { allProjects } from "../config";
@@ -15,14 +14,37 @@ export default function ProjectsPage(): React.JSX.Element {
         <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] relative">
             <AnimatedBackground />
             
-            {/* Minimal Header just for back navigation and theme toggle */}
+            {/* Header with navigation */}
             <Header />
 
-            <section className="pt-48 pb-16 md:pt-56 md:pb-24 px-4 md:px-6 min-h-screen relative z-10">
+            <section className="pt-32 sm:pt-48 pb-12 sm:pb-16 md:pt-56 md:pb-24 px-4 md:px-6 min-h-screen relative z-10">
                 <div className="container mx-auto max-w-6xl">
+                    {/* ── Breadcrumb Navigation ── */}
+                    <ScrollAnimate>
+                        <nav aria-label="Breadcrumb" className="mb-8">
+                            <ol className="flex items-center gap-2 text-sm text-[var(--foreground-tertiary)]">
+                                <li>
+                                    <Link href="/" className="hover:text-[var(--foreground)] transition-colors">
+                                        Home
+                                    </Link>
+                                </li>
+                                <li aria-hidden="true">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </li>
+                                <li>
+                                    <span className="text-[var(--foreground)] font-medium" aria-current="page">
+                                        All Projects
+                                    </span>
+                                </li>
+                            </ol>
+                        </nav>
+                    </ScrollAnimate>
+
                     {/* ── Hero Section ── */}
                     <ScrollAnimate>
-                        <div className="text-center mb-16 md:mb-24">
+                        <div className="text-center mb-10 sm:mb-16 md:mb-24">
                             <Link href="/#lab" className="inline-flex items-center gap-2 text-[var(--foreground-tertiary)] hover:text-[var(--foreground)] transition-colors mb-8 group">
                                 <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -33,17 +55,17 @@ export default function ProjectsPage(): React.JSX.Element {
                             <p className="text-[var(--accent)] text-subheadline font-medium mb-4 tracking-wide uppercase opacity-70">
                                 PORTFOLIO
                             </p>
-                            <h1 className="text-5xl md:text-6xl font-extrabold mb-6 bg-clip-text text-transparent py-2 bg-gradient-to-r from-[#0a84ff] via-[#bf5af2] to-[#ff375f]">
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent py-2 bg-gradient-to-r from-[#0a84ff] via-[#bf5af2] to-[#ff375f]">
                                 All Projects
                             </h1>
-                            <p className="text-[var(--foreground-tertiary)] text-lg max-w-2xl mx-auto">
-                                Explore all the systems I've designed and built — from concept to production.
+                            <p className="text-[var(--foreground-tertiary)] text-base sm:text-lg max-w-2xl mx-auto">
+                                Explore all the systems I&apos;ve designed and built — from concept to production.
                             </p>
                         </div>
                     </ScrollAnimate>
 
                     {/* ── Projects Grid ── */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 md:gap-12">
                         {allProjects.map((project, index) => {
                             // Define gradient accents for variety
                             const accents = [
@@ -56,27 +78,28 @@ export default function ProjectsPage(): React.JSX.Element {
 
                             return (
                                 <ScrollAnimate key={project.id} delay={index * 100}>
-                                    <article className="h-full group relative bg-[var(--background-secondary)] border border-[var(--separator)] rounded-[24px] overflow-hidden transition-all duration-500 hover:border-[rgba(255,255,255,0.1)] hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+                                    <article className="h-full group relative bg-[var(--background-secondary)] border border-[var(--separator)] rounded-2xl sm:rounded-[24px] overflow-hidden transition-all duration-500 hover:border-[rgba(255,255,255,0.1)] hover:shadow-2xl hover:-translate-y-2 flex flex-col">
                                         
                                         {/* Hover Glow Effect */}
-                                        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" style={{ background: accent.gradient }} />
+                                        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" style={{ background: accent.gradient }} aria-hidden="true" />
                                         
                                         {/* ── Image Header ── */}
                                         <div className="relative aspect-[21/9] w-full overflow-hidden">
                                             <Image
                                                 src={project.image}
-                                                alt={project.title}
+                                                alt={`${project.title} — ${project.tagline}`}
                                                 fill
                                                 sizes="(max-width: 768px) 100vw, 50vw"
                                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                                loading="lazy"
                                             />
                                             {/* Gradient Overlay */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[var(--background-secondary)] via-transparent to-transparent opacity-90" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[var(--background-secondary)] via-transparent to-transparent opacity-90" aria-hidden="true" />
                                             
                                             {/* Badge */}
                                             <div className="absolute top-4 left-4 z-10">
                                                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(255,255,255,0.15)] bg-[rgba(10,10,15,0.65)] backdrop-blur-md shadow-lg">
-                                                    <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: accent.primary, boxShadow: `0 0 10px ${accent.primary}` }} />
+                                                    <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: accent.primary, boxShadow: `0 0 10px ${accent.primary}` }} aria-hidden="true" />
                                                     <span className="text-[10px] font-bold uppercase tracking-widest text-white">Project {String(index + 1).padStart(2, '0')}</span>
                                                 </div>
                                             </div>
@@ -84,9 +107,9 @@ export default function ProjectsPage(): React.JSX.Element {
 
                                         {/* ── Content Body ── */}
                                         <div className="p-6 md:p-8 flex flex-col flex-grow relative z-10">
-                                            <h3 className="text-2xl font-bold mb-3 tracking-tight bg-clip-text text-transparent transition-all duration-300 drop-shadow-md" style={{ backgroundImage: accent.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                                            <h2 className="text-2xl font-bold mb-3 tracking-tight bg-clip-text text-transparent transition-all duration-300 drop-shadow-md" style={{ backgroundImage: accent.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                                 {project.title}
-                                            </h3>
+                                            </h2>
                                             
                                             <p className="text-[var(--foreground-secondary)] text-sm leading-relaxed mb-6 flex-grow">
                                                 {project.tagline}
@@ -107,7 +130,7 @@ export default function ProjectsPage(): React.JSX.Element {
                                             </div>
 
                                             {/* Divider */}
-                                            <div className="w-full h-px bg-gradient-to-r from-transparent via-[var(--separator)] to-transparent mb-6 opacity-50" />
+                                            <div className="w-full h-px bg-gradient-to-r from-transparent via-[var(--separator)] to-transparent mb-6 opacity-50" aria-hidden="true" />
 
                                             {/* Impact Metrics */}
                                             <div className="grid grid-cols-2 gap-4 mb-8">
@@ -124,7 +147,11 @@ export default function ProjectsPage(): React.JSX.Element {
                                             </div>
 
                                             {/* View Details Link */}
-                                            <Link href={`/projects/${project.id}`} className="mt-auto inline-flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl font-semibold text-white bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.05)] transition-all duration-300">
+                                            <Link 
+                                                href={`/projects/${project.id}`} 
+                                                className="mt-auto inline-flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl font-semibold text-white bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.05)] transition-all duration-300"
+                                                aria-label={`View details of ${project.title}`}
+                                            >
                                                 <span>View Details</span>
                                                 <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />

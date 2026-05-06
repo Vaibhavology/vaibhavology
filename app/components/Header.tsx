@@ -2,34 +2,39 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect, useCallback, useMemo, memo } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { siteConfig } from "../config";
 import { ThemeToggle } from "./ThemeProvider";
 
 const navItems = [
   {
-    href: "#home",
+    href: "home",
     label: "Home",
     icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
   },
   {
-    href: "#skills",
+    href: "skills",
     label: "Skills",
     icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
   },
   {
-    href: "#lab",
+    href: "lab",
     label: "Projects",
     icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
   },
   {
-    href: "#contact",
+    href: "contact",
     label: "Contact",
     icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
   },
 ];
 
 export default function Header(): React.JSX.Element {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHomePage = pathname === "/";
+
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
@@ -51,18 +56,20 @@ export default function Header(): React.JSX.Element {
             : 0;
           setScrollProgress(progress);
 
-          // Determine active section
-          const sections = ["home", "skills", "lab", "contact"];
-          if (progress >= 0.9) {
-            setActiveSection("contact");
-          } else {
-            for (const section of [...sections].reverse()) {
-              const element = document.getElementById(section);
-              if (element) {
-                const rect = element.getBoundingClientRect();
-                if (rect.top <= 150) {
-                  setActiveSection(section);
-                  break;
+          // Determine active section (only on homepage)
+          if (isHomePage) {
+            const sections = ["home", "skills", "lab", "contact"];
+            if (progress >= 0.9) {
+              setActiveSection("contact");
+            } else {
+              for (const section of [...sections].reverse()) {
+                const element = document.getElementById(section);
+                if (element) {
+                  const rect = element.getBoundingClientRect();
+                  if (rect.top <= 150) {
+                    setActiveSection(section);
+                    break;
+                  }
                 }
               }
             }
@@ -75,7 +82,7 @@ export default function Header(): React.JSX.Element {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -89,14 +96,24 @@ export default function Header(): React.JSX.Element {
     };
   }, [mobileMenuOpen]);
 
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  // Route-aware navigation: scrolls to section on homepage, or navigates to /#section from other pages
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+
+    if (isHomePage) {
+      // On homepage — just smooth scroll to the section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      } else if (sectionId === "home") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    } else {
+      // On a sub-page — navigate to homepage with hash
+      router.push(`/#${sectionId}`);
     }
-  }, []);
+  }, [isHomePage, router]);
 
   const closeMobileMenu = useCallback(() => {
     setMobileMenuOpen(false);
@@ -116,17 +133,19 @@ export default function Header(): React.JSX.Element {
           ? "glass py-2 md:py-3"
           : "bg-transparent py-3 md:py-5"
           }`}
+        role="banner"
       >
-        <nav className="px-6">
+        <nav className="px-6" aria-label="Main navigation">
           <div className="container mx-auto max-w-6xl flex items-center justify-between">
             {/* Logo */}
             <Link
               href="/"
               className="transition-all duration-300 hover:opacity-80 active:scale-95 z-50"
+              aria-label={`${siteConfig.name} — Go to homepage`}
             >
               <Image
                 src={siteConfig.images.logo}
-                alt="Logo"
+                alt={`${siteConfig.name} Logo`}
                 width={60}
                 height={60}
                 className={`w-auto object-contain transition-all duration-300 ${scrolled ? "h-5 md:h-6" : "h-7 md:h-8"}`}
@@ -144,18 +163,19 @@ export default function Header(): React.JSX.Element {
                 {/* Nav Items */}
                 <div className="dynamic-island-items">
                   {navItems.map((item) => {
-                    const isActive = activeSection === item.href.slice(1);
+                    const isActive = isHomePage && activeSection === item.href;
                     return (
-                      <Link
+                      <a
                         key={item.href}
-                        href={item.href}
+                        href={`/#${item.href}`}
                         onClick={(e) => handleNavClick(e, item.href)}
                         className={`dynamic-island-item ${isActive ? "active" : ""}`}
+                        aria-current={isActive ? "true" : undefined}
                       >
                         <span className="dynamic-island-text">
                           {item.label}
                         </span>
-                      </Link>
+                      </a>
                     );
                   })}
                 </div>
@@ -168,7 +188,7 @@ export default function Header(): React.JSX.Element {
             {/* Mobile Controls */}
             <div className="flex items-center gap-3 md:hidden">
               {/* Mobile Slider Indicator */}
-              <div className="ios-slider-mobile">
+              <div className="ios-slider-mobile" role="progressbar" aria-valuenow={Math.round(scrollProgress * 100)} aria-valuemin={0} aria-valuemax={100} aria-label="Page scroll progress">
                 <div
                   className="ios-slider-fill-mobile"
                   style={{ width: scrollProgressPercent }}
@@ -182,7 +202,9 @@ export default function Header(): React.JSX.Element {
               <button
                 onClick={toggleMobileMenu}
                 className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--background-secondary)] border border-[var(--separator)] active:scale-95 transition-transform z-50"
-                aria-label="Toggle menu"
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-nav-menu"
               >
                 <div className="w-5 h-4 flex flex-col justify-between">
                   <span
@@ -206,21 +228,26 @@ export default function Header(): React.JSX.Element {
 
       {/* Mobile Menu Overlay */}
       <div
+        id="mobile-nav-menu"
         className={`fixed inset-0 z-40 md:hidden transition-all duration-500 ${mobileMenuOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
           }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation menu"
       >
         {/* Backdrop blur */}
         <div
           className="absolute inset-0 bg-[var(--background)]/90 backdrop-blur-xl"
           onClick={closeMobileMenu}
+          aria-hidden="true"
         />
 
         {/* Menu Content */}
         <div className="relative h-full flex flex-col items-center justify-center px-6">
           {/* Large Horizontal Slider in Menu */}
-          <div className="ios-slider-large mb-12">
+          <div className="ios-slider-large mb-12" role="progressbar" aria-valuenow={Math.round(scrollProgress * 100)} aria-valuemin={0} aria-valuemax={100}>
             <div
               className="ios-slider-fill-large"
               style={{ width: scrollProgressPercent }}
@@ -228,14 +255,14 @@ export default function Header(): React.JSX.Element {
             <span className="ios-slider-label">{scrollProgressLabel}</span>
           </div>
 
-          <nav className="space-y-2 w-full max-w-sm">
+          <nav className="space-y-2 w-full max-w-sm" aria-label="Mobile navigation">
             {navItems.map((item, index) => {
-              const isActive = activeSection === item.href.slice(1);
+              const isActive = isHomePage && activeSection === item.href;
 
               return (
-                <Link
+                <a
                   key={item.href}
-                  href={item.href}
+                  href={`/#${item.href}`}
                   onClick={(e) => handleNavClick(e, item.href)}
                   className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 relative overflow-hidden border border-[var(--separator)] ${mobileMenuOpen
                     ? "translate-y-0 opacity-100"
@@ -244,6 +271,7 @@ export default function Header(): React.JSX.Element {
                   style={{
                     transitionDelay: mobileMenuOpen ? `${index * 75}ms` : "0ms"
                   }}
+                  aria-current={isActive ? "page" : undefined}
                 >
                   {/* Horizontal fill based on scroll */}
                   <div
@@ -251,6 +279,7 @@ export default function Header(): React.JSX.Element {
                     style={{
                       clipPath: `inset(0 ${100 - scrollProgress * 100}% 0 0)`,
                     }}
+                    aria-hidden="true"
                   />
 
                   <span className={`text-2xl relative z-10 transition-transform duration-300 ${isActive ? "scale-125" : ""}`}>
@@ -260,7 +289,7 @@ export default function Header(): React.JSX.Element {
                     }`}>
                     {item.label}
                   </span>
-                </Link>
+                </a>
               );
             })}
           </nav>
@@ -273,6 +302,7 @@ export default function Header(): React.JSX.Element {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-[var(--background-secondary)] border border-[var(--separator)] active:scale-95 transition-transform"
+                aria-label="GitHub profile"
               >
                 <svg className="w-5 h-5 text-[var(--foreground-tertiary)]" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -285,6 +315,7 @@ export default function Header(): React.JSX.Element {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-[var(--background-secondary)] border border-[var(--separator)] active:scale-95 transition-transform"
+                aria-label="LinkedIn profile"
               >
                 <svg className="w-5 h-5 text-[var(--foreground-tertiary)]" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />

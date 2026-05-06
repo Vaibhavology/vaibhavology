@@ -7,11 +7,11 @@ import { ScrollAnimate } from "./ScrollAnimate";
 
 export default function Footer(): React.JSX.Element {
   return (
-    <footer id="contact" className="py-24 px-6 relative">
+    <footer id="contact" className="py-16 sm:py-24 px-4 sm:px-6 relative">
       <div className="container mx-auto max-w-6xl">
         {/* Contact Section */}
         <ScrollAnimate>
-          <div className="card-widget text-center mb-16 py-16 relative overflow-hidden group">
+          <div className="card-widget text-center mb-12 sm:mb-16 py-10 sm:py-16 relative overflow-hidden group">
             {/* Animated gradient background */}
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-blue)]/10 via-transparent to-[var(--accent-purple)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 

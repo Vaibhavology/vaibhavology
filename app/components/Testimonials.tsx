@@ -34,7 +34,7 @@ export default function Testimonials(): React.JSX.Element {
     const active = testimonials[activeIndex];
 
     return (
-        <section id="testimonials" className="py-24 px-6">
+        <section id="testimonials" className="py-16 sm:py-24 px-4 sm:px-6">
             <div className="container mx-auto max-w-4xl">
                 {/* Section Header */}
                 <ScrollAnimate>
@@ -63,8 +63,8 @@ export default function Testimonials(): React.JSX.Element {
                         </div>
 
                         {/* Content */}
-                        <div className="relative pt-10 pb-6 px-6" key={activeIndex}>
-                            <blockquote className="text-xl lg:text-2xl text-[var(--foreground-secondary)] text-center leading-relaxed mb-10 min-h-[120px] transition-all duration-500">
+                        <div className="relative pt-8 sm:pt-10 pb-4 sm:pb-6 px-4 sm:px-6" key={activeIndex}>
+                            <blockquote className="text-base sm:text-xl lg:text-2xl text-[var(--foreground-secondary)] text-center leading-relaxed mb-8 sm:mb-10 min-h-[80px] sm:min-h-[120px] transition-all duration-500">
                                 {active.quote}
                             </blockquote>
 
@@ -72,7 +72,7 @@ export default function Testimonials(): React.JSX.Element {
                             <div className="flex items-center justify-center gap-4">
                                 <div className="relative">
                                     <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-purple)] rounded-full blur animate-pulse-glow" />
-                                    <div className="relative w-16 h-16 rounded-full overflow-hidden bg-[var(--background-tertiary)] border-2 border-[var(--accent)]/30">
+                                    <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden bg-[var(--background-tertiary)] border-2 border-[var(--accent)]/30">
                                         {active.avatar ? (
                                             <Image
                                                 src={active.avatar}
